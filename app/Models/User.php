@@ -3,6 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\UserRole;
+use Filament\Panel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -43,6 +48,27 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class,
         ];
+    }
+
+    public function scopeInstructors(Builder $query): Builder
+    {
+        return $query->where('role', UserRole::Instructor);
+    }
+
+    public function balance()
+    {
+        return $this->hasOne(InstructorBalance::class, 'instructor_id');
+    }
+
+    public function payouts()
+    {
+        return $this->hasMany(Payout::class, 'instructor_id');
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->role === UserRole::Admin;
     }
 }
