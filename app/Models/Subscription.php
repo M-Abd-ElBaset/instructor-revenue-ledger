@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subscription extends Model
 {
     protected $fillable = ['student_id', 'plan', 'term_starts_at', 'term_ends_at',
-    'total_amount', 'status', 'refunded_at', 'refund_reference'];
+    'total_amount', 'instructor_share_bps', 'status', 'refunded_at', 'refund_reference'];
 
     protected function casts(): array
     {
@@ -20,6 +20,7 @@ class Subscription extends Model
             'term_ends_at' => 'date',
             'refunded_at' => 'datetime',
             'total_amount' => 'integer',
+            'instructor_share_bps' => 'integer',
         ];
     }
 
