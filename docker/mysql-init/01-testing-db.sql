@@ -1,0 +1,1 @@
+CREATE DATABASE IF NOT EXISTS instructor_revenue_ledger_testing;
