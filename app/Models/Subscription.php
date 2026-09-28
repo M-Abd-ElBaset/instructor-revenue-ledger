@@ -4,10 +4,13 @@ namespace App\Models;
 
 use App\Enums\SubscriptionPlan;
 use App\Enums\SubscriptionStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
 {
+    use HasFactory;
+    
     protected $fillable = ['student_id', 'plan', 'term_starts_at', 'term_ends_at',
     'total_amount', 'instructor_share_bps', 'status', 'refunded_at', 'refund_reference'];
 
